@@ -1,5 +1,7 @@
 package link;
 
+import jdk.nashorn.internal.ir.IfNode;
+
 public class Node<T> {
     /**
      * 数据部分
@@ -23,12 +25,4 @@ public class Node<T> {
       return this;
     }
 
-    @Override
-    public String toString() {
-
-        return "Node{" +
-                "data=" + data +
-                ", next=" + next +
-                '}';
-    }
 }
