@@ -25,4 +25,13 @@ public class Node<T> {
       return this;
     }
 
+    @Override
+    public String toString() {
+
+        String next = null != this.next ? this.next.toString():"{}";
+        return "Node{" +
+                "data=" + data +
+                ", next=" + next +
+                '}';
+    }
 }
