@@ -1,11 +1,13 @@
 package link;
 
+import java.util.LinkedList;
+
 /**
  *  链表中倒数结点
  * @title
  * @author shixin peng
  * @date 2019-12-10 21:01
- * @param null
+ * @param
  * @return null
  * @throws
  */

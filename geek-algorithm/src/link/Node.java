@@ -6,11 +6,14 @@ public class Node<T> {
     /**
      * 数据部分
      */
-    T data;
+    public T data;
     /**
      * 下一个节点
      * */
     public Node next;
+    public Node(){
+
+    }
 
     public Node(T data){
         this.data = data;
