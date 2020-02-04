@@ -16,6 +16,12 @@ import java.util.stream.Collectors;
 public class InsertionSortDemo {
 
     static int move = 0;
+
+    /**
+     * Traditional (without sentinel) insertion sort
+     * @param a
+     * @param n
+     */
     public static void insertSort(int[] a, int n){
         // 插入排序，把数组分为已排序区和未排序区，依次把未排序中的元素插入的已排序中
 
@@ -41,7 +47,30 @@ public class InsertionSortDemo {
         }
     }
 
+
+    public static void insertionWithSentrySort(int[] a,int n) {
+        int i,j;
+        for(i=1+1;i<a.length;i++){//a[0]作为哨兵，a[1]作为初始有序,i=1+1是为了后面希尔排序好理解
+            if(a[i]<a[i-1]){ // 1
+                a[0]=a[i];//设置哨兵
+                for(j=i-1; a[j]>a[0];j--){
+                    a[j+1]=a[j];//记录后移
+                }
+                a[j+1]=a[0];//插入
+            }
+        }
+
+    }
+
     public static void main(String[] args) {
+        int[] a = new int[]{0,5,5,5,1,2,1,0};
+        // 此时我们传入的SqList参数的值为length=6,r[6]={0,5,3,4,6,2}，其中r[0]=0将用于后面起到哨兵的作用
+        insertionWithSentrySort(a,7);
+        System.out.println(Arrays.toString(a));
+    }
+
+
+    public static void main1(String[] args) {
         int[] a = new  int[]{0,5,5,5,1};
         insertSort(a,5);
         System.out.println(Arrays.toString(a));
