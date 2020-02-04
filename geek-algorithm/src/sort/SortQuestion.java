@@ -1,5 +1,10 @@
 package sort;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.stream.Collectors;
+
 public class SortQuestion {
     /*
     * 对D，a，F，B，c，A，z这几个字符串进行排序
@@ -74,15 +79,52 @@ public class SortQuestion {
      * @return
      */
     public static String sortCharacter(String s){
+        // 三段范围为 数字： [48`57] 大写：[65~90] 小写：[97~122]
+        // 两端逼近，交换位置
+        if (s.isEmpty()){
+            return s;
+        }
+        char[] a = s.toCharArray();
+        int less = -1;
+        int more = s.length();
 
+        int L = 0;
+        while (L<more){
+            char x = a[L];
+            if ('0'<= x && x<='9'){
+                System.out.println("数字"+x);
+                // 在最前 arr[++ less] 和 arr[L++] 的值
+                swap(a,++less,L);
+                L++;
+            }else if ('A'<= x && x <='Z'){
+                System.out.println("大写字母"+x);
+                // 在最后 交换 交换 arr[--more] 和 arr[L] 的值
+                swap(a,--more,L);
+            }else if ('a'<= x && x <='z'){
+                System.out.println("小写"+x);
+                // 在中间 L++
+                L++;
+            }
+
+            System.out.println(String.format("L = %d less = %d more = %d ",L,less,more));
+        }
+        return new String(a);
+
+    }
+
+    public static void swap(char[] a,int i,int j){
+        char temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
     }
 
     public static void main(String[] args) {
 //        String a = "aF5cAzD1B";
-        String a = "0123456789azAZ";
+        String a = "01D4a59a9Z";
         char[] chars = a.toCharArray();
-        String s = countingSortCharacter(a);
+        String s = sortCharacter(a);
         System.out.println(s);
-
+        Arrays.sort(chars);
+        Collections.sort(new ArrayList<String>());
     }
 }
