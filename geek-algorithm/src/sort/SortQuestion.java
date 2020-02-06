@@ -1,5 +1,7 @@
 package sort;
 
+import SelectionSort.SortTestHelper;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -119,12 +121,94 @@ public class SortQuestion {
     }
 
     public static void main(String[] args) {
+        int length = 700;
+        System.out.println(Integer.toBinaryString(length));
+        int a=  length>>3;
+        System.out.println(Integer.toBinaryString(a));
+        System.out.println("a="+a);
+        int b=  length>>6;
+        System.out.println(Integer.toBinaryString(b));
+        System.out.println("b="+b);
+        int seventh = (length >> 3) + (length >> 6) + 1;
+
+        System.out.println(seventh);
+    }
+    public static void main4(String[] args) {
+        /**
+         * 是否只有起始位置才检测重复元素个数?
+         * 起始位相同元素大于33个则直接快排
+         *
+         */
+
+
+        int[] a = new int[300];
+        for (int i = 0; i < a.length; i++) {
+            if (i<100){
+                a[i] = i;
+            }else if (i >= 100 && i<=200){
+                a[i] = 10;
+            }else {
+                a[i] = i;
+            }
+
+        }
+
+       // int[] a = SortTestHelper.generateRandomArray(300, 1, 300);
+
+    /*
+         Arrays.sort(a);
+        int last = 0;
+        int k =(last = 0) ;
+
+        k++;
+        System.out.println(k);
+        System.out.println(last);
+
+*/
+        compareCalcSpeed();
+    }
+
+    public static void main3(String[] args) {
+        int n  =1;
+        byte odd = 0;
+        int count = 1000;
+        for (; (n <<= 1) < count; odd ^= 1){
+            System.out.println(odd);
+            System.out.println("n:"+n);
+        }
+
+
+    }
+
+    public static void main1(String[] args) {
 //        String a = "aF5cAzD1B";
         String a = "01D4a59a9Z";
+
         char[] chars = a.toCharArray();
         String s = sortCharacter(a);
         System.out.println(s);
         Arrays.sort(chars);
         Collections.sort(new ArrayList<String>());
     }
+
+    static void compareCalcSpeed() {
+        int count = 66;
+        byte odd = 0;
+
+        // Approach 1
+        long start = System.nanoTime();
+        for (int n = 1; (n <<= 1) < count; odd ^= 1) ;
+        odd ^= 1;
+        long period = System.nanoTime() - start;
+
+        System.out.printf("loop time: %d ns\n", period);
+
+        // Approach 2
+        start = System.nanoTime();
+        double logValue = Math.log(count) / Math.log(2);
+        int mergeLoopTimes = (int) Math.ceil(logValue);
+        period = System.nanoTime() - start;
+        System.out.printf("calc time: %d ns\n", period);
+    }
+
 }
