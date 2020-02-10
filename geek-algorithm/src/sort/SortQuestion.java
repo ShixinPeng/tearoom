@@ -187,7 +187,8 @@ public class SortQuestion {
         char[] chars = a.toCharArray();
         String s = sortCharacter(a);
         System.out.println(s);
-        Arrays.sort(chars);
+        int[] t = new int[2];
+        Arrays.sort(t);
         Collections.sort(new ArrayList<String>());
     }
 
