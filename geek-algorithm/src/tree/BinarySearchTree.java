@@ -141,6 +141,35 @@ public class BinarySearchTree {
         return true;
     }
 
+    /**
+     *  求二叉查找树的树高
+     * @title getHeight
+     * @author shixin peng
+     * @date 2020-02-13 21:51
+     * @param
+     * @return int
+     * @throws
+     */
+    public static int getHeight(){
+        if (tree==null){
+            return 0;
+        }
+
+
+        // 方法1： depth =Math.max(maxDepth(node.left), maxDepth(node.right) )+ 1;
+        int depth = maxDepth(tree);
+        return depth;
+        // 方法2：层遍历，计算深度+1
+
+    }
+    public static int maxDepth(Node node){
+        if (node==null){
+            return 0;
+        }
+        return  Math.max(maxDepth(node.left), maxDepth(node.right))+1;
+
+    }
+
     public static void main(String[] args) {
         insert(10);
         insert(5);
@@ -169,6 +198,24 @@ public class BinarySearchTree {
         } catch (InterruptedException e) {
         e.printStackTrace();
         }
+        System.out.println("===中序遍历，打印排序数据==");
+        BinaryTree.inPrint(tree);
+        int height = getHeight();
+        System.out.println("树高："+height);
+
+
+        // 构建一个二叉树
+        Node node = new Node(1);
+        node.setLeft(3);
+        node.setRight(6);
+        node.left.setLeft(5);
+        node.left.setRight(8);
+        node.right.setLeft(11);
+        node.right.setRight(12);
+
+        int height2 = maxDepth(node);
+        System.out.println("构件二叉树高："+height2);
+
 
     }
 
