@@ -4,6 +4,7 @@ import sun.misc.Queue;
 
 import javax.xml.crypto.Data;
 import java.util.PrimitiveIterator;
+import java.util.Stack;
 
 /**
  * @author shixinpeng
@@ -26,6 +27,33 @@ public class BinaryTree {
         System.out.println(root.data);
         prePrint(root.left);
         prePrint(root.right);
+    }
+
+    /**
+     *  使用模拟栈来进行前序遍历
+     * @title preStackPrint
+     * @author shixin peng
+     * @date 2020-02-13 16:26
+     * @param root
+     * @return void
+     * @throws
+     */
+    public static void preStackPrint(Node root){
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+        // 前序遍历，先打印自身，在打印左结点，在打印右结点
+        while (!stack.isEmpty()){
+            Node node = stack.pop();
+            System.out.println(node.data);
+            if (node.right !=null){
+                stack.push(node.right);
+            }
+            if (node.left !=null){
+                stack.push(node.left);
+            }
+
+        }
+
     }
     /**
      *  递归中序遍历
@@ -88,28 +116,34 @@ public class BinaryTree {
        Node node = new Node(1);
        node.setLeft(3);
        node.setRight(6);
-       node.left.setLeft(7);
+       node.left.setLeft(5);
+        node.left.setRight(8);
+        node.right.setLeft(11);
+        node.right.setRight(12);
 
         /**
          *
-         *          1
-         *        3  6
-         *      7
+         *            1
+         *        3     6
+         *      5  8  11 12
          *
          */
 
         prePrint(node);
         System.out.println("===========");
+        preStackPrint(node);
+        System.out.println("===========");
         inPrint(node);
         System.out.println("===========");
         postPrint(node);
-        System.out.println("===========");
+        System.out.println("=====level======");
         try {
-            System.out.println("=====level======");
+
             levelPrint(node);
         }catch (Exception e){
             e.printStackTrace();
         }
+
 
 
     }
