@@ -1,6 +1,6 @@
 package sort;
 
-import SelectionSort.SortTestHelper;
+import selectionSort.SortTestHelper;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;

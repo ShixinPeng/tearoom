@@ -1,6 +1,6 @@
 package sort;
 
-import SelectionSort.SortTestHelper;
+import selectionSort.SortTestHelper;
 
 public class InsertionSortVsBubbleSortDemo {
     public static void main(String[] args) {

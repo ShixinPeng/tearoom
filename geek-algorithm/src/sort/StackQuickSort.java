@@ -1,11 +1,9 @@
 package sort;
 
-import SelectionSort.SortTestHelper;
-import com.sun.org.apache.bcel.internal.generic.SWAP;
+import selectionSort.SortTestHelper;
 
 import java.util.Arrays;
 import java.util.Stack;
-import java.util.stream.Collectors;
 
 /**
  * @author shixinpeng
