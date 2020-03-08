@@ -1,6 +1,7 @@
 package graph;
 
 import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * @author shixinpeng
@@ -37,6 +38,67 @@ public class Graph {
         for (int i = 0; i < v; i++) {
             System.out.println(" " + i + "=>" + adj[i].toString());
         }
+    }
+
+    /**
+     *  Breadth-First-Search
+     *  广度优先算法
+     * @title bfs
+     * @author shixin peng
+     * @date 2020-03-01 15:02
+     * @param s
+     * @param t
+     * @return void
+     * @throws
+     */
+    public void bfs(int s,int t){
+        if (s == t){
+            return;
+        }
+        // 用来记录已经被访问的顶点
+        boolean[] visited = new boolean[v];
+        visited[s] = true;
+        // 用来存储已经被访问、但相连的顶点还没有被访问的顶点（待访问子顶点的顶点队列）
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(s);
+        // 记录搜索路径
+        int[] prev = new int[v];
+        // 初始化prev 搜索路径
+        for (int i = 0; i < v; i++) {
+            prev[i] = -1;
+        }
+        // 待查找队列不为空
+        while (queue.size() !=0){
+            // w = 获取当前查找的顶点(关注点)
+            int w = queue.poll();
+            // 遍历当前查找的顶点所有邻接顶点
+            for (int i = 0; i < adj[w].size(); i++) {
+                // 依次获取操作顶点的邻接顶点
+                int q = adj[w].get(i);
+                // 判断邻接顶点是否已经操作过
+                if (!visited[q]){
+                    // 如果没有操作过，则记录当前的路径
+                    // 这里prev表示方式为prev[邻接顶点] = 被连接上的顶点（已经搜索到的顶点、可以理解为上级线人）
+                    prev[q] = w;
+                    // 如果邻接顶点为终止顶点，则打印已经存储的路径
+                    if (q==t){
+                        return;
+                    }
+                    // 如果邻接顶点不为终止顶点，则：
+                    // 1：记录当前操作顶点已经操作完毕
+                    visited[q] = true;
+                    // 2：记录需要操作的顶点
+                    queue.add(q);
+                }
+
+            }
+        }
+
+    }
+
+
+    public void dfs(){
+
     }
 
     public static void main(String[] args) {
