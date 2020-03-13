@@ -11,5 +11,6 @@ fun main(args: Array<String>) {
 
     println("----------")
     list.forEach(Consumer { println(it) })
+    println("----------")
     list.forEach(System.out::println)
 }
