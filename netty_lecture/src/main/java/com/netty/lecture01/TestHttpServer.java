@@ -24,7 +24,7 @@ public class TestHttpServer {
             ServerBootstrap bootstrap = new ServerBootstrap();
             // 配置引导服务
             bootstrap.group(bossGroup,workerGroup).channel(NioServerSocketChannel.class).childHandler(new HttpServerInitializer());
-            // 绑定端口；这里会进行阻塞循环执行
+            // 绑定端口；
             ChannelFuture channelFuture = bootstrap.bind(8999).sync();
             channelFuture.channel().closeFuture().sync();
         }finally {
