@@ -1,5 +1,7 @@
 package com.pengshixin.mqlecture.sayHi;
 
+import com.pengshixin.mqlecture.sayHi.serializer.TalkMessageJavaSerializer;
+
 import java.nio.charset.Charset;
 
 import io.netty.buffer.ByteBuf;
@@ -8,14 +10,23 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 public class LiHandler extends ChannelInboundHandlerAdapter {
+
+    /**
+     * 编解码器
+     */
+    private TalkMessageSerializable talkMessageSerializable;
+
+    {
+        this.talkMessageSerializable = new TalkMessageJavaSerializer();
+    }
+
+
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        ByteBuf byteBuf = (ByteBuf) msg;
         System.out.println("接收到消息");
-        ByteBuf buf = (ByteBuf) msg;
-        int length = buf.readableBytes();
-        String s = buf.getCharSequence(0, length, Charset.defaultCharset()).toString();
-
-        System.out.println("内容："+s);
+        TalkMessage talkMessage = talkMessageSerializable.decode(byteBuf);
+        System.out.println("内容："+talkMessage.toString());
     }
 
     @Override
