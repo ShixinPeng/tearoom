@@ -13,7 +13,13 @@ import java.io.ObjectOutputStream;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-
+/**
+ * @author shixinpeng
+ * @description 使用java自带方法进行编解码
+ * @ClassName: TalkMessageJavaSerializer
+ * @date 2020/8/30
+ *
+ */
 public class TalkMessageJavaSerializer implements TalkMessageSerializable {
     @Override
     public ByteBuf encode(TalkMessage message) {

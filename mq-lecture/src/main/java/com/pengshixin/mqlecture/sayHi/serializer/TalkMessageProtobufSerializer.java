@@ -7,27 +7,20 @@ import io.netty.buffer.ByteBuf;
 
 /**
  * @author shixinpeng
- * @description 使用json格式进行编解码
- * @ClassName: TalkMessageJsonSerializer
+ * @description protobuf编解码器
+ * @ClassName: TalkMessageProtobufSerializer
  * @date 2020/8/30
  *
  */
-public class TalkMessageJsonSerializer implements TalkMessageSerializable {
+public class TalkMessageProtobufSerializer implements TalkMessageSerializable {
 
     @Override
     public ByteBuf encode(TalkMessage message) {
-        // 对象转json串
-
-        // json串转bytes
-
         return null;
     }
 
     @Override
     public TalkMessage decode(ByteBuf buf) {
-        // Bytes 转json串
-
-        // json串转对象
         return null;
     }
 }
