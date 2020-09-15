@@ -1,0 +1,8 @@
+syntax = "proto2";
+
+package com.lecture.protobuf;
+
+option optimize_for = SPEED;
+option java_package = "com.lecture.protobuf";
+option java_outer_classname = "DataInfo";
+
