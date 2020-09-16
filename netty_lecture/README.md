@@ -7,11 +7,22 @@
 * lecture03 : 简单的模拟聊天服务
 * lecture04 : 心跳监控服务
 * lecture05 : 使用netty搭建简单的websocket服务
-* lecture05 : netty使用protocolBuf进行对象编解码
+* lecture06 : netty使用ProtocolBuf进行数据的编码解码传输
+* lecture07 : Protocol Buffers 多个实例传输过程的区分
+
 
 ### Protocol Buffers的使用
+
+#####1.下载protoc编译器
+
+
+#####2.进行IDL文件编译
 
 ```
 protoc -I=$SRC_DIR --java_out=$DST_DIR $SRC_DIR/addressbook.proto
 
 ```
+#####3.java项目中引入protocol buffers的依赖包
+
+
+#####4.进行调用使用
