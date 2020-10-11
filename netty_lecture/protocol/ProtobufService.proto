@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package com.netty.protobuf;
+
+option optimize_for = SPEED;
+option java_package = "com.netty.protobuf";
+option java_outer_classname = "ProtobufService";
+option java_generic_services = true;
+
+service HelloService {
+    rpc Search(HelloRequest) returns (HelloResponse);
+}
+
+message HelloRequest {
+    string arg = 1;
+
+}
+
+message HelloResponse {
+    string result = 1;
+
+}
