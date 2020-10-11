@@ -17,7 +17,7 @@ import java.io.IOException;
 public class PbHelloClient {
 
     public static void main(String[] args) {
-
+//        callLocalMethod();
         callRemoteMethod();
 //        printMethodDescriptor();
     }
@@ -78,7 +78,12 @@ public class PbHelloClient {
         // 参数3：请求信息
         ProtobufService.HelloRequest helloRequest = ProtobufService.HelloRequest.newBuilder().setArg("hello，2020").build();
         // 参数4：回调
-        RpcCallback rpcCallback = new PbRpcCallbackImpl();
+        RpcCallback rpcCallback = new RpcCallback<ProtobufService.HelloResponse>() {
+            @Override
+            public void run(ProtobufService.HelloResponse parameter) {
+                System.out.println("Callback:收到返回=>" + parameter.getResult());
+            }
+        };
 
         stub.callMethod(methodDescriptor, rpcController, helloRequest, rpcCallback);
 
@@ -89,6 +94,33 @@ public class PbHelloClient {
 
         }
 
+    }
 
+    /**
+     * 调用本地方法
+     */
+    private static void callLocalMethod() {
+
+        PbHelloService helloService = new PbHelloService();
+
+        RpcController rpcController = new PbRpcControllerImpl();
+
+        // 参数：请求信息
+        ProtobufService.HelloRequest helloRequest = ProtobufService.HelloRequest.newBuilder().setArg("hello，2020").build();
+        // 参数：回调
+        RpcCallback rpcCallback = new RpcCallback<ProtobufService.HelloResponse>() {
+            @Override
+            public void run(ProtobufService.HelloResponse parameter) {
+                System.out.println("Callback:收到返回=>" + parameter.getResult());
+            }
+        };
+
+        helloService.search(rpcController, helloRequest, rpcCallback);
+        try {
+            int read = System.in.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
     }
 }

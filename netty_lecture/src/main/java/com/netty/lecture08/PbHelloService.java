@@ -20,7 +20,7 @@ public class PbHelloService extends ProtobufService.HelloService {
 
         String arg = request.getArg();
 
-        done.run(ProtobufService.HelloResponse.newBuilder().setResult(arg+" => 不忘初心，方得始终。").build());
+        done.run(ProtobufService.HelloResponse.newBuilder().setResult(arg+"+ 不忘初心，方得始终。").build());
 
 
     }
