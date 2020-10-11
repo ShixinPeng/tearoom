@@ -23,12 +23,16 @@ public class PbRpcChannelImpl implements RpcChannel {
         // 根据方法的描述，通过RpcController，发送request，根据需要响应的信息类型，返回响应信息
         System.out.println("RpcChannel=>通道开始执行方法："+method.getName());
 
-        PbHelloService helloService = new PbHelloService();
+        PbHelloServiceImpl helloService = new PbHelloServiceImpl();
 
         // 向下泛型
         RpcCallback<ProtobufService.HelloResponse> generalizeCallback = RpcUtil.specializeCallback(done);
 
-        helloService.search(controller,(ProtobufService.HelloRequest) request,generalizeCallback);
+        // 本地直接执行
+        // helloService.search(controller,(ProtobufService.HelloRequest) request,generalizeCallback);
+
+        // 执行远程调用
+
 
     }
 }

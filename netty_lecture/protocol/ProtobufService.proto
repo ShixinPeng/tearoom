@@ -20,3 +20,14 @@ message HelloResponse {
     string result = 1;
 
 }
+// rpc包装信息
+message RpcWrapper {
+    string service = 1;
+    string method = 2;
+    oneof request {
+        HelloRequest helloRequest = 3;
+    };
+    oneof response {
+        HelloResponse helloResponse = 4;
+    };
+}

@@ -5,7 +5,7 @@ import com.google.protobuf.RpcController;
 
 import com.netty.protobuf.ProtobufService;
 
-public class PbHelloService extends ProtobufService.HelloService {
+public class PbHelloServiceRemoteImpl extends ProtobufService.HelloService {
 
     @Override
     public void search(RpcController controller, ProtobufService.HelloRequest request, RpcCallback<ProtobufService.HelloResponse> done) {

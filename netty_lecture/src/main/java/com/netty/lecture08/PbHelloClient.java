@@ -27,7 +27,7 @@ public class PbHelloClient {
      */
     private static void printMethodDescriptor() {
         // service类
-        PbHelloService helloService = new PbHelloService();
+        PbHelloServiceImpl helloService = new PbHelloServiceImpl();
         // 获取service描述
         Descriptors.ServiceDescriptor descriptorForType = helloService.getDescriptorForType();
 
@@ -55,7 +55,10 @@ public class PbHelloClient {
      * 调用远程的service实现
      */
     private static void callRemoteMethod() {
-        PbHelloService helloService = new PbHelloService();
+
+
+
+        PbHelloServiceImpl helloService = new PbHelloServiceImpl();
         // 按正常java中service的调用，需要获取service实例，然后调用service中的方法
         // 连接执行service的channel
         RpcChannel rpcChannel = new PbRpcChannelImpl();
@@ -101,7 +104,7 @@ public class PbHelloClient {
      */
     private static void callLocalMethod() {
 
-        PbHelloService helloService = new PbHelloService();
+        ProtobufService.HelloService helloService = new PbHelloServiceImpl();
 
         RpcController rpcController = new PbRpcControllerImpl();
 
