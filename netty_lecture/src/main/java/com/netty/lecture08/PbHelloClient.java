@@ -6,9 +6,24 @@ import com.google.protobuf.RpcCallback;
 import com.google.protobuf.RpcChannel;
 import com.google.protobuf.RpcController;
 
+import com.netty.protobuf.DataInfo;
 import com.netty.protobuf.ProtobufService;
 
 import java.io.IOException;
+
+import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.protobuf.ProtobufDecoder;
+import io.netty.handler.codec.protobuf.ProtobufEncoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 
 
 /**
@@ -16,10 +31,53 @@ import java.io.IOException;
  */
 public class PbHelloClient {
 
-    public static void main(String[] args) {
+    private RpcChannel nettyRpcChannel;
+
+    public static void main(String[] args) throws InterruptedException {
 //        callLocalMethod();
+        startChannel();
         callRemoteMethod();
 //        printMethodDescriptor();
+    }
+
+    /**
+     * 开启客户端的channel的连接 提供给PB进行服务调用，使用包装Message的方式进行数据传递
+     */
+    public static void startChannel() throws InterruptedException {
+
+        NioEventLoopGroup eventLoopGroup = new NioEventLoopGroup();
+
+        try {
+            Bootstrap bootstrap = new Bootstrap();
+            bootstrap.group(eventLoopGroup).channel(NioSocketChannel.class).handler(new ChannelInitializer<SocketChannel>() {
+                @Override
+                protected void initChannel(SocketChannel socketChannel) throws Exception {
+                    ChannelPipeline pipeline = socketChannel.pipeline();
+                    // 添加对应的handler
+                    pipeline.addLast(new ProtobufVarint32FrameDecoder());
+                    pipeline.addLast(new ProtobufDecoder(ProtobufService.RpcWrapper.getDefaultInstance()));
+                    pipeline.addLast(new ProtobufVarint32LengthFieldPrepender());
+                    pipeline.addLast(new ProtobufEncoder());
+                    pipeline.addLast(new SimpleChannelInboundHandler<ProtobufService.RpcWrapper>() {
+                        @Override
+                        protected void channelRead0(ChannelHandlerContext ctx, ProtobufService.RpcWrapper msg) throws Exception {
+
+                        }
+
+                        @Override
+                        public void channelActive(ChannelHandlerContext ctx) throws Exception {
+                            System.out.println("客户端已连接");
+
+                        }
+                    });
+                }
+            });
+            ChannelFuture channelFuture = bootstrap.connect("127.0.0.1", 8999).sync();
+            channelFuture.channel().closeFuture().sync();
+
+        } finally {
+            eventLoopGroup.shutdownGracefully();
+        }
     }
 
     /**
@@ -55,7 +113,6 @@ public class PbHelloClient {
      * 调用远程的service实现
      */
     private static void callRemoteMethod() {
-
 
 
         PbHelloServiceImpl helloService = new PbHelloServiceImpl();
