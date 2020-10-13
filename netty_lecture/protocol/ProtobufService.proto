@@ -8,7 +8,7 @@ option java_outer_classname = "ProtobufService";
 option java_generic_services = true;
 
 service HelloService {
-    rpc Search(HelloRequest) returns (HelloResponse);
+    rpc Search (HelloRequest) returns (HelloResponse);
 }
 
 message HelloRequest {
@@ -24,10 +24,6 @@ message HelloResponse {
 message RpcWrapper {
     string service = 1;
     string method = 2;
-    oneof request {
-        HelloRequest helloRequest = 3;
-    };
-    oneof response {
-        HelloResponse helloResponse = 4;
-    };
+    bytes request = 3;
+    bytes response = 4;
 }

@@ -11,4 +11,9 @@ public class PbHelloServerHandler extends SimpleChannelInboundHandler<ProtobufSe
     protected void channelRead0(ChannelHandlerContext ctx, ProtobufService.RpcWrapper msg) throws Exception {
         System.out.println("服务端收到service调用请求："+msg.getMethod());
     }
+
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("有客户端连接");
+    }
 }

@@ -1179,38 +1179,16 @@ public final class ProtobufService {
         getMethodBytes();
 
     /**
-     * <code>.com.netty.protobuf.HelloRequest helloRequest = 3;</code>
-     * @return Whether the helloRequest field is set.
+     * <code>bytes request = 3;</code>
+     * @return The request.
      */
-    boolean hasHelloRequest();
-    /**
-     * <code>.com.netty.protobuf.HelloRequest helloRequest = 3;</code>
-     * @return The helloRequest.
-     */
-    com.netty.protobuf.ProtobufService.HelloRequest getHelloRequest();
-    /**
-     * <code>.com.netty.protobuf.HelloRequest helloRequest = 3;</code>
-     */
-    com.netty.protobuf.ProtobufService.HelloRequestOrBuilder getHelloRequestOrBuilder();
+    com.google.protobuf.ByteString getRequest();
 
     /**
-     * <code>.com.netty.protobuf.HelloResponse helloResponse = 4;</code>
-     * @return Whether the helloResponse field is set.
+     * <code>bytes response = 4;</code>
+     * @return The response.
      */
-    boolean hasHelloResponse();
-    /**
-     * <code>.com.netty.protobuf.HelloResponse helloResponse = 4;</code>
-     * @return The helloResponse.
-     */
-    com.netty.protobuf.ProtobufService.HelloResponse getHelloResponse();
-    /**
-     * <code>.com.netty.protobuf.HelloResponse helloResponse = 4;</code>
-     */
-    com.netty.protobuf.ProtobufService.HelloResponseOrBuilder getHelloResponseOrBuilder();
-
-    public com.netty.protobuf.ProtobufService.RpcWrapper.RequestCase getRequestCase();
-
-    public com.netty.protobuf.ProtobufService.RpcWrapper.ResponseCase getResponseCase();
+    com.google.protobuf.ByteString getResponse();
   }
   /**
    * <pre>
@@ -1231,6 +1209,8 @@ public final class ProtobufService {
     private RpcWrapper() {
       service_ = "";
       method_ = "";
+      request_ = com.google.protobuf.ByteString.EMPTY;
+      response_ = com.google.protobuf.ByteString.EMPTY;
     }
 
     @java.lang.Override
@@ -1276,31 +1256,13 @@ public final class ProtobufService {
               break;
             }
             case 26: {
-              com.netty.protobuf.ProtobufService.HelloRequest.Builder subBuilder = null;
-              if (requestCase_ == 3) {
-                subBuilder = ((com.netty.protobuf.ProtobufService.HelloRequest) request_).toBuilder();
-              }
-              request_ =
-                  input.readMessage(com.netty.protobuf.ProtobufService.HelloRequest.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom((com.netty.protobuf.ProtobufService.HelloRequest) request_);
-                request_ = subBuilder.buildPartial();
-              }
-              requestCase_ = 3;
+
+              request_ = input.readBytes();
               break;
             }
             case 34: {
-              com.netty.protobuf.ProtobufService.HelloResponse.Builder subBuilder = null;
-              if (responseCase_ == 4) {
-                subBuilder = ((com.netty.protobuf.ProtobufService.HelloResponse) response_).toBuilder();
-              }
-              response_ =
-                  input.readMessage(com.netty.protobuf.ProtobufService.HelloResponse.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom((com.netty.protobuf.ProtobufService.HelloResponse) response_);
-                response_ = subBuilder.buildPartial();
-              }
-              responseCase_ = 4;
+
+              response_ = input.readBytes();
               break;
             }
             default: {
@@ -1333,84 +1295,6 @@ public final class ProtobufService {
       return com.netty.protobuf.ProtobufService.internal_static_com_netty_protobuf_RpcWrapper_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.netty.protobuf.ProtobufService.RpcWrapper.class, com.netty.protobuf.ProtobufService.RpcWrapper.Builder.class);
-    }
-
-    private int requestCase_ = 0;
-    private java.lang.Object request_;
-    public enum RequestCase
-        implements com.google.protobuf.Internal.EnumLite,
-            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
-      HELLOREQUEST(3),
-      REQUEST_NOT_SET(0);
-      private final int value;
-      private RequestCase(int value) {
-        this.value = value;
-      }
-      /**
-       * @param value The number of the enum to look for.
-       * @return The enum associated with the given number.
-       * @deprecated Use {@link #forNumber(int)} instead.
-       */
-      @java.lang.Deprecated
-      public static RequestCase valueOf(int value) {
-        return forNumber(value);
-      }
-
-      public static RequestCase forNumber(int value) {
-        switch (value) {
-          case 3: return HELLOREQUEST;
-          case 0: return REQUEST_NOT_SET;
-          default: return null;
-        }
-      }
-      public int getNumber() {
-        return this.value;
-      }
-    };
-
-    public RequestCase
-    getRequestCase() {
-      return RequestCase.forNumber(
-          requestCase_);
-    }
-
-    private int responseCase_ = 0;
-    private java.lang.Object response_;
-    public enum ResponseCase
-        implements com.google.protobuf.Internal.EnumLite,
-            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
-      HELLORESPONSE(4),
-      RESPONSE_NOT_SET(0);
-      private final int value;
-      private ResponseCase(int value) {
-        this.value = value;
-      }
-      /**
-       * @param value The number of the enum to look for.
-       * @return The enum associated with the given number.
-       * @deprecated Use {@link #forNumber(int)} instead.
-       */
-      @java.lang.Deprecated
-      public static ResponseCase valueOf(int value) {
-        return forNumber(value);
-      }
-
-      public static ResponseCase forNumber(int value) {
-        switch (value) {
-          case 4: return HELLORESPONSE;
-          case 0: return RESPONSE_NOT_SET;
-          default: return null;
-        }
-      }
-      public int getNumber() {
-        return this.value;
-      }
-    };
-
-    public ResponseCase
-    getResponseCase() {
-      return ResponseCase.forNumber(
-          responseCase_);
     }
 
     public static final int SERVICE_FIELD_NUMBER = 1;
@@ -1489,66 +1373,26 @@ public final class ProtobufService {
       }
     }
 
-    public static final int HELLOREQUEST_FIELD_NUMBER = 3;
+    public static final int REQUEST_FIELD_NUMBER = 3;
+    private com.google.protobuf.ByteString request_;
     /**
-     * <code>.com.netty.protobuf.HelloRequest helloRequest = 3;</code>
-     * @return Whether the helloRequest field is set.
+     * <code>bytes request = 3;</code>
+     * @return The request.
      */
     @java.lang.Override
-    public boolean hasHelloRequest() {
-      return requestCase_ == 3;
-    }
-    /**
-     * <code>.com.netty.protobuf.HelloRequest helloRequest = 3;</code>
-     * @return The helloRequest.
-     */
-    @java.lang.Override
-    public com.netty.protobuf.ProtobufService.HelloRequest getHelloRequest() {
-      if (requestCase_ == 3) {
-         return (com.netty.protobuf.ProtobufService.HelloRequest) request_;
-      }
-      return com.netty.protobuf.ProtobufService.HelloRequest.getDefaultInstance();
-    }
-    /**
-     * <code>.com.netty.protobuf.HelloRequest helloRequest = 3;</code>
-     */
-    @java.lang.Override
-    public com.netty.protobuf.ProtobufService.HelloRequestOrBuilder getHelloRequestOrBuilder() {
-      if (requestCase_ == 3) {
-         return (com.netty.protobuf.ProtobufService.HelloRequest) request_;
-      }
-      return com.netty.protobuf.ProtobufService.HelloRequest.getDefaultInstance();
+    public com.google.protobuf.ByteString getRequest() {
+      return request_;
     }
 
-    public static final int HELLORESPONSE_FIELD_NUMBER = 4;
+    public static final int RESPONSE_FIELD_NUMBER = 4;
+    private com.google.protobuf.ByteString response_;
     /**
-     * <code>.com.netty.protobuf.HelloResponse helloResponse = 4;</code>
-     * @return Whether the helloResponse field is set.
+     * <code>bytes response = 4;</code>
+     * @return The response.
      */
     @java.lang.Override
-    public boolean hasHelloResponse() {
-      return responseCase_ == 4;
-    }
-    /**
-     * <code>.com.netty.protobuf.HelloResponse helloResponse = 4;</code>
-     * @return The helloResponse.
-     */
-    @java.lang.Override
-    public com.netty.protobuf.ProtobufService.HelloResponse getHelloResponse() {
-      if (responseCase_ == 4) {
-         return (com.netty.protobuf.ProtobufService.HelloResponse) response_;
-      }
-      return com.netty.protobuf.ProtobufService.HelloResponse.getDefaultInstance();
-    }
-    /**
-     * <code>.com.netty.protobuf.HelloResponse helloResponse = 4;</code>
-     */
-    @java.lang.Override
-    public com.netty.protobuf.ProtobufService.HelloResponseOrBuilder getHelloResponseOrBuilder() {
-      if (responseCase_ == 4) {
-         return (com.netty.protobuf.ProtobufService.HelloResponse) response_;
-      }
-      return com.netty.protobuf.ProtobufService.HelloResponse.getDefaultInstance();
+    public com.google.protobuf.ByteString getResponse() {
+      return response_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -1571,11 +1415,11 @@ public final class ProtobufService {
       if (!getMethodBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, method_);
       }
-      if (requestCase_ == 3) {
-        output.writeMessage(3, (com.netty.protobuf.ProtobufService.HelloRequest) request_);
+      if (!request_.isEmpty()) {
+        output.writeBytes(3, request_);
       }
-      if (responseCase_ == 4) {
-        output.writeMessage(4, (com.netty.protobuf.ProtobufService.HelloResponse) response_);
+      if (!response_.isEmpty()) {
+        output.writeBytes(4, response_);
       }
       unknownFields.writeTo(output);
     }
@@ -1592,13 +1436,13 @@ public final class ProtobufService {
       if (!getMethodBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, method_);
       }
-      if (requestCase_ == 3) {
+      if (!request_.isEmpty()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, (com.netty.protobuf.ProtobufService.HelloRequest) request_);
+          .computeBytesSize(3, request_);
       }
-      if (responseCase_ == 4) {
+      if (!response_.isEmpty()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, (com.netty.protobuf.ProtobufService.HelloResponse) response_);
+          .computeBytesSize(4, response_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1619,24 +1463,10 @@ public final class ProtobufService {
           .equals(other.getService())) return false;
       if (!getMethod()
           .equals(other.getMethod())) return false;
-      if (!getRequestCase().equals(other.getRequestCase())) return false;
-      switch (requestCase_) {
-        case 3:
-          if (!getHelloRequest()
-              .equals(other.getHelloRequest())) return false;
-          break;
-        case 0:
-        default:
-      }
-      if (!getResponseCase().equals(other.getResponseCase())) return false;
-      switch (responseCase_) {
-        case 4:
-          if (!getHelloResponse()
-              .equals(other.getHelloResponse())) return false;
-          break;
-        case 0:
-        default:
-      }
+      if (!getRequest()
+          .equals(other.getRequest())) return false;
+      if (!getResponse()
+          .equals(other.getResponse())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -1652,22 +1482,10 @@ public final class ProtobufService {
       hash = (53 * hash) + getService().hashCode();
       hash = (37 * hash) + METHOD_FIELD_NUMBER;
       hash = (53 * hash) + getMethod().hashCode();
-      switch (requestCase_) {
-        case 3:
-          hash = (37 * hash) + HELLOREQUEST_FIELD_NUMBER;
-          hash = (53 * hash) + getHelloRequest().hashCode();
-          break;
-        case 0:
-        default:
-      }
-      switch (responseCase_) {
-        case 4:
-          hash = (37 * hash) + HELLORESPONSE_FIELD_NUMBER;
-          hash = (53 * hash) + getHelloResponse().hashCode();
-          break;
-        case 0:
-        default:
-      }
+      hash = (37 * hash) + REQUEST_FIELD_NUMBER;
+      hash = (53 * hash) + getRequest().hashCode();
+      hash = (37 * hash) + RESPONSE_FIELD_NUMBER;
+      hash = (53 * hash) + getResponse().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1809,10 +1627,10 @@ public final class ProtobufService {
 
         method_ = "";
 
-        requestCase_ = 0;
-        request_ = null;
-        responseCase_ = 0;
-        response_ = null;
+        request_ = com.google.protobuf.ByteString.EMPTY;
+
+        response_ = com.google.protobuf.ByteString.EMPTY;
+
         return this;
       }
 
@@ -1841,22 +1659,8 @@ public final class ProtobufService {
         com.netty.protobuf.ProtobufService.RpcWrapper result = new com.netty.protobuf.ProtobufService.RpcWrapper(this);
         result.service_ = service_;
         result.method_ = method_;
-        if (requestCase_ == 3) {
-          if (helloRequestBuilder_ == null) {
-            result.request_ = request_;
-          } else {
-            result.request_ = helloRequestBuilder_.build();
-          }
-        }
-        if (responseCase_ == 4) {
-          if (helloResponseBuilder_ == null) {
-            result.response_ = response_;
-          } else {
-            result.response_ = helloResponseBuilder_.build();
-          }
-        }
-        result.requestCase_ = requestCase_;
-        result.responseCase_ = responseCase_;
+        result.request_ = request_;
+        result.response_ = response_;
         onBuilt();
         return result;
       }
@@ -1913,23 +1717,11 @@ public final class ProtobufService {
           method_ = other.method_;
           onChanged();
         }
-        switch (other.getRequestCase()) {
-          case HELLOREQUEST: {
-            mergeHelloRequest(other.getHelloRequest());
-            break;
-          }
-          case REQUEST_NOT_SET: {
-            break;
-          }
+        if (other.getRequest() != com.google.protobuf.ByteString.EMPTY) {
+          setRequest(other.getRequest());
         }
-        switch (other.getResponseCase()) {
-          case HELLORESPONSE: {
-            mergeHelloResponse(other.getHelloResponse());
-            break;
-          }
-          case RESPONSE_NOT_SET: {
-            break;
-          }
+        if (other.getResponse() != com.google.protobuf.ByteString.EMPTY) {
+          setResponse(other.getResponse());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1959,36 +1751,6 @@ public final class ProtobufService {
         }
         return this;
       }
-      private int requestCase_ = 0;
-      private java.lang.Object request_;
-      public RequestCase
-          getRequestCase() {
-        return RequestCase.forNumber(
-            requestCase_);
-      }
-
-      public Builder clearRequest() {
-        requestCase_ = 0;
-        request_ = null;
-        onChanged();
-        return this;
-      }
-
-      private int responseCase_ = 0;
-      private java.lang.Object response_;
-      public ResponseCase
-          getResponseCase() {
-        return ResponseCase.forNumber(
-            responseCase_);
-      }
-
-      public Builder clearResponse() {
-        responseCase_ = 0;
-        response_ = null;
-        onChanged();
-        return this;
-      }
-
 
       private java.lang.Object service_ = "";
       /**
@@ -2142,286 +1904,72 @@ public final class ProtobufService {
         return this;
       }
 
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.netty.protobuf.ProtobufService.HelloRequest, com.netty.protobuf.ProtobufService.HelloRequest.Builder, com.netty.protobuf.ProtobufService.HelloRequestOrBuilder> helloRequestBuilder_;
+      private com.google.protobuf.ByteString request_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>.com.netty.protobuf.HelloRequest helloRequest = 3;</code>
-       * @return Whether the helloRequest field is set.
+       * <code>bytes request = 3;</code>
+       * @return The request.
        */
       @java.lang.Override
-      public boolean hasHelloRequest() {
-        return requestCase_ == 3;
+      public com.google.protobuf.ByteString getRequest() {
+        return request_;
       }
       /**
-       * <code>.com.netty.protobuf.HelloRequest helloRequest = 3;</code>
-       * @return The helloRequest.
+       * <code>bytes request = 3;</code>
+       * @param value The request to set.
+       * @return This builder for chaining.
        */
-      @java.lang.Override
-      public com.netty.protobuf.ProtobufService.HelloRequest getHelloRequest() {
-        if (helloRequestBuilder_ == null) {
-          if (requestCase_ == 3) {
-            return (com.netty.protobuf.ProtobufService.HelloRequest) request_;
-          }
-          return com.netty.protobuf.ProtobufService.HelloRequest.getDefaultInstance();
-        } else {
-          if (requestCase_ == 3) {
-            return helloRequestBuilder_.getMessage();
-          }
-          return com.netty.protobuf.ProtobufService.HelloRequest.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>.com.netty.protobuf.HelloRequest helloRequest = 3;</code>
-       */
-      public Builder setHelloRequest(com.netty.protobuf.ProtobufService.HelloRequest value) {
-        if (helloRequestBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          request_ = value;
-          onChanged();
-        } else {
-          helloRequestBuilder_.setMessage(value);
-        }
-        requestCase_ = 3;
+      public Builder setRequest(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        request_ = value;
+        onChanged();
         return this;
       }
       /**
-       * <code>.com.netty.protobuf.HelloRequest helloRequest = 3;</code>
+       * <code>bytes request = 3;</code>
+       * @return This builder for chaining.
        */
-      public Builder setHelloRequest(
-          com.netty.protobuf.ProtobufService.HelloRequest.Builder builderForValue) {
-        if (helloRequestBuilder_ == null) {
-          request_ = builderForValue.build();
-          onChanged();
-        } else {
-          helloRequestBuilder_.setMessage(builderForValue.build());
-        }
-        requestCase_ = 3;
+      public Builder clearRequest() {
+        
+        request_ = getDefaultInstance().getRequest();
+        onChanged();
         return this;
-      }
-      /**
-       * <code>.com.netty.protobuf.HelloRequest helloRequest = 3;</code>
-       */
-      public Builder mergeHelloRequest(com.netty.protobuf.ProtobufService.HelloRequest value) {
-        if (helloRequestBuilder_ == null) {
-          if (requestCase_ == 3 &&
-              request_ != com.netty.protobuf.ProtobufService.HelloRequest.getDefaultInstance()) {
-            request_ = com.netty.protobuf.ProtobufService.HelloRequest.newBuilder((com.netty.protobuf.ProtobufService.HelloRequest) request_)
-                .mergeFrom(value).buildPartial();
-          } else {
-            request_ = value;
-          }
-          onChanged();
-        } else {
-          if (requestCase_ == 3) {
-            helloRequestBuilder_.mergeFrom(value);
-          }
-          helloRequestBuilder_.setMessage(value);
-        }
-        requestCase_ = 3;
-        return this;
-      }
-      /**
-       * <code>.com.netty.protobuf.HelloRequest helloRequest = 3;</code>
-       */
-      public Builder clearHelloRequest() {
-        if (helloRequestBuilder_ == null) {
-          if (requestCase_ == 3) {
-            requestCase_ = 0;
-            request_ = null;
-            onChanged();
-          }
-        } else {
-          if (requestCase_ == 3) {
-            requestCase_ = 0;
-            request_ = null;
-          }
-          helloRequestBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>.com.netty.protobuf.HelloRequest helloRequest = 3;</code>
-       */
-      public com.netty.protobuf.ProtobufService.HelloRequest.Builder getHelloRequestBuilder() {
-        return getHelloRequestFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.com.netty.protobuf.HelloRequest helloRequest = 3;</code>
-       */
-      @java.lang.Override
-      public com.netty.protobuf.ProtobufService.HelloRequestOrBuilder getHelloRequestOrBuilder() {
-        if ((requestCase_ == 3) && (helloRequestBuilder_ != null)) {
-          return helloRequestBuilder_.getMessageOrBuilder();
-        } else {
-          if (requestCase_ == 3) {
-            return (com.netty.protobuf.ProtobufService.HelloRequest) request_;
-          }
-          return com.netty.protobuf.ProtobufService.HelloRequest.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>.com.netty.protobuf.HelloRequest helloRequest = 3;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.netty.protobuf.ProtobufService.HelloRequest, com.netty.protobuf.ProtobufService.HelloRequest.Builder, com.netty.protobuf.ProtobufService.HelloRequestOrBuilder> 
-          getHelloRequestFieldBuilder() {
-        if (helloRequestBuilder_ == null) {
-          if (!(requestCase_ == 3)) {
-            request_ = com.netty.protobuf.ProtobufService.HelloRequest.getDefaultInstance();
-          }
-          helloRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.netty.protobuf.ProtobufService.HelloRequest, com.netty.protobuf.ProtobufService.HelloRequest.Builder, com.netty.protobuf.ProtobufService.HelloRequestOrBuilder>(
-                  (com.netty.protobuf.ProtobufService.HelloRequest) request_,
-                  getParentForChildren(),
-                  isClean());
-          request_ = null;
-        }
-        requestCase_ = 3;
-        onChanged();;
-        return helloRequestBuilder_;
       }
 
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.netty.protobuf.ProtobufService.HelloResponse, com.netty.protobuf.ProtobufService.HelloResponse.Builder, com.netty.protobuf.ProtobufService.HelloResponseOrBuilder> helloResponseBuilder_;
+      private com.google.protobuf.ByteString response_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>.com.netty.protobuf.HelloResponse helloResponse = 4;</code>
-       * @return Whether the helloResponse field is set.
+       * <code>bytes response = 4;</code>
+       * @return The response.
        */
       @java.lang.Override
-      public boolean hasHelloResponse() {
-        return responseCase_ == 4;
+      public com.google.protobuf.ByteString getResponse() {
+        return response_;
       }
       /**
-       * <code>.com.netty.protobuf.HelloResponse helloResponse = 4;</code>
-       * @return The helloResponse.
+       * <code>bytes response = 4;</code>
+       * @param value The response to set.
+       * @return This builder for chaining.
        */
-      @java.lang.Override
-      public com.netty.protobuf.ProtobufService.HelloResponse getHelloResponse() {
-        if (helloResponseBuilder_ == null) {
-          if (responseCase_ == 4) {
-            return (com.netty.protobuf.ProtobufService.HelloResponse) response_;
-          }
-          return com.netty.protobuf.ProtobufService.HelloResponse.getDefaultInstance();
-        } else {
-          if (responseCase_ == 4) {
-            return helloResponseBuilder_.getMessage();
-          }
-          return com.netty.protobuf.ProtobufService.HelloResponse.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>.com.netty.protobuf.HelloResponse helloResponse = 4;</code>
-       */
-      public Builder setHelloResponse(com.netty.protobuf.ProtobufService.HelloResponse value) {
-        if (helloResponseBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          response_ = value;
-          onChanged();
-        } else {
-          helloResponseBuilder_.setMessage(value);
-        }
-        responseCase_ = 4;
+      public Builder setResponse(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        response_ = value;
+        onChanged();
         return this;
       }
       /**
-       * <code>.com.netty.protobuf.HelloResponse helloResponse = 4;</code>
+       * <code>bytes response = 4;</code>
+       * @return This builder for chaining.
        */
-      public Builder setHelloResponse(
-          com.netty.protobuf.ProtobufService.HelloResponse.Builder builderForValue) {
-        if (helloResponseBuilder_ == null) {
-          response_ = builderForValue.build();
-          onChanged();
-        } else {
-          helloResponseBuilder_.setMessage(builderForValue.build());
-        }
-        responseCase_ = 4;
+      public Builder clearResponse() {
+        
+        response_ = getDefaultInstance().getResponse();
+        onChanged();
         return this;
-      }
-      /**
-       * <code>.com.netty.protobuf.HelloResponse helloResponse = 4;</code>
-       */
-      public Builder mergeHelloResponse(com.netty.protobuf.ProtobufService.HelloResponse value) {
-        if (helloResponseBuilder_ == null) {
-          if (responseCase_ == 4 &&
-              response_ != com.netty.protobuf.ProtobufService.HelloResponse.getDefaultInstance()) {
-            response_ = com.netty.protobuf.ProtobufService.HelloResponse.newBuilder((com.netty.protobuf.ProtobufService.HelloResponse) response_)
-                .mergeFrom(value).buildPartial();
-          } else {
-            response_ = value;
-          }
-          onChanged();
-        } else {
-          if (responseCase_ == 4) {
-            helloResponseBuilder_.mergeFrom(value);
-          }
-          helloResponseBuilder_.setMessage(value);
-        }
-        responseCase_ = 4;
-        return this;
-      }
-      /**
-       * <code>.com.netty.protobuf.HelloResponse helloResponse = 4;</code>
-       */
-      public Builder clearHelloResponse() {
-        if (helloResponseBuilder_ == null) {
-          if (responseCase_ == 4) {
-            responseCase_ = 0;
-            response_ = null;
-            onChanged();
-          }
-        } else {
-          if (responseCase_ == 4) {
-            responseCase_ = 0;
-            response_ = null;
-          }
-          helloResponseBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>.com.netty.protobuf.HelloResponse helloResponse = 4;</code>
-       */
-      public com.netty.protobuf.ProtobufService.HelloResponse.Builder getHelloResponseBuilder() {
-        return getHelloResponseFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.com.netty.protobuf.HelloResponse helloResponse = 4;</code>
-       */
-      @java.lang.Override
-      public com.netty.protobuf.ProtobufService.HelloResponseOrBuilder getHelloResponseOrBuilder() {
-        if ((responseCase_ == 4) && (helloResponseBuilder_ != null)) {
-          return helloResponseBuilder_.getMessageOrBuilder();
-        } else {
-          if (responseCase_ == 4) {
-            return (com.netty.protobuf.ProtobufService.HelloResponse) response_;
-          }
-          return com.netty.protobuf.ProtobufService.HelloResponse.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>.com.netty.protobuf.HelloResponse helloResponse = 4;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.netty.protobuf.ProtobufService.HelloResponse, com.netty.protobuf.ProtobufService.HelloResponse.Builder, com.netty.protobuf.ProtobufService.HelloResponseOrBuilder> 
-          getHelloResponseFieldBuilder() {
-        if (helloResponseBuilder_ == null) {
-          if (!(responseCase_ == 4)) {
-            response_ = com.netty.protobuf.ProtobufService.HelloResponse.getDefaultInstance();
-          }
-          helloResponseBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.netty.protobuf.ProtobufService.HelloResponse, com.netty.protobuf.ProtobufService.HelloResponse.Builder, com.netty.protobuf.ProtobufService.HelloResponseOrBuilder>(
-                  (com.netty.protobuf.ProtobufService.HelloResponse) response_,
-                  getParentForChildren(),
-                  isClean());
-          response_ = null;
-        }
-        responseCase_ = 4;
-        onChanged();;
-        return helloResponseBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -2734,16 +2282,13 @@ public final class ProtobufService {
     java.lang.String[] descriptorData = {
       "\n\025ProtobufService.proto\022\022com.netty.proto" +
       "buf\"\033\n\014HelloRequest\022\013\n\003arg\030\001 \001(\t\"\037\n\rHell" +
-      "oResponse\022\016\n\006result\030\001 \001(\t\"\272\001\n\nRpcWrapper" +
-      "\022\017\n\007service\030\001 \001(\t\022\016\n\006method\030\002 \001(\t\0228\n\014hel" +
-      "loRequest\030\003 \001(\0132 .com.netty.protobuf.Hel" +
-      "loRequestH\000\022:\n\rhelloResponse\030\004 \001(\0132!.com" +
-      ".netty.protobuf.HelloResponseH\001B\t\n\007reque" +
-      "stB\n\n\010response2]\n\014HelloService\022M\n\006Search" +
-      "\022 .com.netty.protobuf.HelloRequest\032!.com" +
-      ".netty.protobuf.HelloResponseB*\n\022com.net" +
-      "ty.protobufB\017ProtobufServiceH\001\210\001\001b\006proto" +
-      "3"
+      "oResponse\022\016\n\006result\030\001 \001(\t\"P\n\nRpcWrapper\022" +
+      "\017\n\007service\030\001 \001(\t\022\016\n\006method\030\002 \001(\t\022\017\n\007requ" +
+      "est\030\003 \001(\014\022\020\n\010response\030\004 \001(\0142]\n\014HelloServ" +
+      "ice\022M\n\006Search\022 .com.netty.protobuf.Hello" +
+      "Request\032!.com.netty.protobuf.HelloRespon" +
+      "seB*\n\022com.netty.protobufB\017ProtobufServic" +
+      "eH\001\210\001\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2766,7 +2311,7 @@ public final class ProtobufService {
     internal_static_com_netty_protobuf_RpcWrapper_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_netty_protobuf_RpcWrapper_descriptor,
-        new java.lang.String[] { "Service", "Method", "HelloRequest", "HelloResponse", "Request", "Response", });
+        new java.lang.String[] { "Service", "Method", "Request", "Response", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

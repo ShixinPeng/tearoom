@@ -10,8 +10,10 @@ import com.netty.protobuf.DataInfo;
 import com.netty.protobuf.ProtobufService;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
@@ -31,24 +33,27 @@ import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
  */
 public class PbHelloClient {
 
-    private RpcChannel nettyRpcChannel;
-
+    private Bootstrap bootstrap;
+    private ChannelFuture channelFuture;
+    private NioEventLoopGroup eventLoopGroup;
     public static void main(String[] args) throws InterruptedException {
 //        callLocalMethod();
-        startChannel();
-        callRemoteMethod();
+        PbHelloClient client = new PbHelloClient();
+        RpcChannel rpcChannel = client.startChannel();
+        client.callRemoteMethod(rpcChannel);
 //        printMethodDescriptor();
     }
 
     /**
      * 开启客户端的channel的连接 提供给PB进行服务调用，使用包装Message的方式进行数据传递
      */
-    public static void startChannel() throws InterruptedException {
+    public  RpcChannel startChannel() throws InterruptedException {
 
-        NioEventLoopGroup eventLoopGroup = new NioEventLoopGroup();
+        eventLoopGroup = new NioEventLoopGroup();
+        PbRpcChannelImpl rpcChannel = new PbRpcChannelImpl();
 
         try {
-            Bootstrap bootstrap = new Bootstrap();
+            bootstrap = new Bootstrap();
             bootstrap.group(eventLoopGroup).channel(NioSocketChannel.class).handler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 protected void initChannel(SocketChannel socketChannel) throws Exception {
@@ -58,67 +63,34 @@ public class PbHelloClient {
                     pipeline.addLast(new ProtobufDecoder(ProtobufService.RpcWrapper.getDefaultInstance()));
                     pipeline.addLast(new ProtobufVarint32LengthFieldPrepender());
                     pipeline.addLast(new ProtobufEncoder());
-                    pipeline.addLast(new SimpleChannelInboundHandler<ProtobufService.RpcWrapper>() {
-                        @Override
-                        protected void channelRead0(ChannelHandlerContext ctx, ProtobufService.RpcWrapper msg) throws Exception {
 
-                        }
-
-                        @Override
-                        public void channelActive(ChannelHandlerContext ctx) throws Exception {
-                            System.out.println("客户端已连接");
-
-                        }
-                    });
+                    pipeline.addLast(rpcChannel);
                 }
             });
-            ChannelFuture channelFuture = bootstrap.connect("127.0.0.1", 8999).sync();
-            channelFuture.channel().closeFuture().sync();
+             channelFuture = bootstrap.connect("127.0.0.1", 8999).sync();
+        }  finally {
+            Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    eventLoopGroup.shutdownGracefully();
+                }
+            }));
 
-        } finally {
-            eventLoopGroup.shutdownGracefully();
         }
+        System.out.println("start ent");
+        return rpcChannel;
     }
 
-    /**
-     * 获取方法的描述 简单了解PB如果标记service
-     */
-    private static void printMethodDescriptor() {
-        // service类
-        PbHelloServiceImpl helloService = new PbHelloServiceImpl();
-        // 获取service描述
-        Descriptors.ServiceDescriptor descriptorForType = helloService.getDescriptorForType();
-
-        // Describes a service
-        DescriptorProtos.ServiceDescriptorProto descriptorProto = descriptorForType.toProto();
-        System.out.println("————————");
-        System.out.println("服务：" + descriptorProto);
-        System.out.println("————————");
-        System.out.println("getFullName=" + descriptorForType.getFullName());
-        System.out.println("getName=" + descriptorForType.getName());
-        System.out.println("getFile=" + descriptorForType.getFile());
-        System.out.println("getMethods=" + descriptorForType.getMethods());
-        System.out.println("getOptions=" + descriptorForType.getOptions());
-        System.out.println("————————");
-        descriptorForType.getMethods().forEach(action -> {
-            System.out.println("方法：" + action.toProto());
-        });
-        // 获取指定方法描述
-        Descriptors.MethodDescriptor method = descriptorForType.findMethodByName("Search");
-        System.out.println("————————");
-        System.out.println("获取指定方法描述=" + method.toProto());
-    }
 
     /**
      * 调用远程的service实现
      */
-    private static void callRemoteMethod() {
+    private void callRemoteMethod(RpcChannel rpcChannel) {
 
-
-        PbHelloServiceImpl helloService = new PbHelloServiceImpl();
+        // PbHelloServiceImpl helloService = new PbHelloServiceImpl();
         // 按正常java中service的调用，需要获取service实例，然后调用service中的方法
         // 连接执行service的channel
-        RpcChannel rpcChannel = new PbRpcChannelImpl();
+        //RpcChannel rpcChannel = new PbRpcChannelImpl();
 
         // 客户端stub
         ProtobufService.HelloService.Stub stub = ProtobufService.HelloService.newStub(rpcChannel);
@@ -130,7 +102,7 @@ public class PbHelloClient {
          * com.google.protobuf.RpcCallback<com.google.protobuf.Message> done 回调信息
          * */
         // 参数1：获取service中待调用方法描述
-        Descriptors.ServiceDescriptor serviceDescriptor = helloService.getDescriptorForType();
+        Descriptors.ServiceDescriptor serviceDescriptor = ProtobufService.HelloService.getDescriptor();
         Descriptors.MethodDescriptor methodDescriptor = serviceDescriptor.findMethodByName("Search");
         // 参数2：rpc协助控制器
         RpcController rpcController = new PbRpcControllerImpl();
@@ -182,5 +154,33 @@ public class PbHelloClient {
             e.printStackTrace();
 
         }
+    }
+    /**
+     * 获取方法的描述 简单了解PB如果标记service
+     */
+    private  static void printMethodDescriptor() {
+        // service类
+        PbHelloServiceImpl helloService = new PbHelloServiceImpl();
+        // 获取service描述
+        Descriptors.ServiceDescriptor descriptorForType = helloService.getDescriptorForType();
+
+        // Describes a service
+        DescriptorProtos.ServiceDescriptorProto descriptorProto = descriptorForType.toProto();
+        System.out.println("————————");
+        System.out.println("服务：" + descriptorProto);
+        System.out.println("————————");
+        System.out.println("getFullName=" + descriptorForType.getFullName());
+        System.out.println("getName=" + descriptorForType.getName());
+        System.out.println("getFile=" + descriptorForType.getFile());
+        System.out.println("getMethods=" + descriptorForType.getMethods());
+        System.out.println("getOptions=" + descriptorForType.getOptions());
+        System.out.println("————————");
+        descriptorForType.getMethods().forEach(action -> {
+            System.out.println("方法：" + action.toProto());
+        });
+        // 获取指定方法描述
+        Descriptors.MethodDescriptor method = descriptorForType.findMethodByName("Search");
+        System.out.println("————————");
+        System.out.println("获取指定方法描述=" + method.toProto());
     }
 }
