@@ -5,13 +5,8 @@ import com.google.protobuf.Descriptors;
 import com.google.protobuf.RpcCallback;
 import com.google.protobuf.RpcChannel;
 import com.google.protobuf.RpcController;
-
-import com.netty.protobuf.DataInfo;
 import com.netty.protobuf.ProtobufService;
-
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
