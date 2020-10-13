@@ -41,13 +41,14 @@ public class PbHelloClient {
         PbHelloClient client = new PbHelloClient();
         RpcChannel rpcChannel = client.startChannel();
         client.callRemoteMethod(rpcChannel);
+
 //        printMethodDescriptor();
     }
 
     /**
      * 开启客户端的channel的连接 提供给PB进行服务调用，使用包装Message的方式进行数据传递
      */
-    public  RpcChannel startChannel() throws InterruptedException {
+    private RpcChannel startChannel() throws InterruptedException {
 
         eventLoopGroup = new NioEventLoopGroup();
         PbRpcChannelImpl rpcChannel = new PbRpcChannelImpl();
@@ -72,12 +73,15 @@ public class PbHelloClient {
             Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    eventLoopGroup.shutdownGracefully();
+                    if (!eventLoopGroup.isShutdown()){
+
+                        eventLoopGroup.shutdownGracefully();
+                    }
                 }
             }));
 
         }
-        System.out.println("start ent");
+        System.out.println("start end");
         return rpcChannel;
     }
 
@@ -119,12 +123,12 @@ public class PbHelloClient {
 
         stub.callMethod(methodDescriptor, rpcController, helloRequest, rpcCallback);
 
-        try {
-            int read = System.in.read();
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }
+//        try {
+//            int read = System.in.read();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//
+//        }
 
     }
 

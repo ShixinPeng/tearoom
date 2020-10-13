@@ -66,6 +66,12 @@ public class PbRpcChannelImpl extends SimpleChannelInboundHandler<ProtobufServic
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ProtobufService.RpcWrapper msg) throws Exception {
+        Descriptors.ServiceDescriptor serviceDescriptor = ProtobufService.HelloService.getDescriptor();
+        if (msg.getService().contentEquals(serviceDescriptor.getName())&&msg.getMethod().contentEquals("Search")){
+            ProtobufService.HelloResponse helloResponse = ProtobufService.HelloResponse.parseFrom(msg.getResponse());
+            System.out.println("客户端收到服务器Search方法返回："+helloResponse.getResult());
+        }
+
 
     }
 
@@ -79,6 +85,6 @@ public class PbRpcChannelImpl extends SimpleChannelInboundHandler<ProtobufServic
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 
         super.channelInactive(ctx);
-        System.out.println("channelInactive");
+        System.out.println("客户端已关闭连接");
     }
 }
