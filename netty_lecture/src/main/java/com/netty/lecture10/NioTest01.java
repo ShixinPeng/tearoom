@@ -63,7 +63,6 @@ public class NioTest01 {
 //            byteBuffer.flip();
         }
         System.out.println("\n");
-
     }
 
     /**
@@ -87,15 +86,15 @@ public class NioTest01 {
 
             if (i==buffer.capacity()/2){
                 // 当写入一半时标记mark
-                buffer.mark();
-                System.out.println("执行mark()方法");
+//                buffer.mark();
+//                System.out.println("执行mark()方法");
             }
 
         }
 
-        buffer.reset();
-        System.out.println("执行reset()方法");
-        System.out.println(String.format("position=%d,limit=%d,capacity=%d",buffer.position(),buffer.limit(),buffer.capacity()) );
+//        buffer.reset();
+//        System.out.println("执行reset()方法");
+//        System.out.println(String.format("position=%d,limit=%d,capacity=%d",buffer.position(),buffer.limit(),buffer.capacity()) );
 
 
         // 执行flip()方法：limit = position；position=0，翻转，此时变为读模式，limit为可读的中止边界
@@ -113,7 +112,10 @@ public class NioTest01 {
 //        System.out.println("执行rewind方法 倒回");
 //        System.out.println(String.format("position=%d,limit=%d,capacity=%d",buffer.position(),buffer.limit(),buffer.capacity()) );
 
-
+        // 使用slice 内容是互相透明的，位置维护是独立的
+        buffer.slice();
+        // 使用 duplicate  内容是互相透明的，位置维护是独立的
+        buffer.duplicate();
 
 
     }

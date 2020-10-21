@@ -15,7 +15,13 @@
 * lecture07 : Protocol Buffers 多个实例传输过程的区分
 * lecture08 : Protocol Buffers 的service服务定义的本地调用用&RPC调用
 * lecture09 : gRPC的使用
-* lecture10 : Java NIO
+* lecture10 : [Java Nio组件的练习](src/main/java/com/netty/lecture10/README.md)
+    * 关于buffer的使用
+    * 关于channel的使用
+    * 关于selector的使用
+    * java传统io 进行socket编程
+    * Nio进行socket编程
+    
 
 ### Protocol Buffers的使用
 
