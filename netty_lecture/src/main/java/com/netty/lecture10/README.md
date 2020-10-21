@@ -1,7 +1,12 @@
 
 > 传统的java io核心是stream（流）
 >
-> Nio的核心则有三个：Buffer、channel、selector
+> Nio的核心有三个：Buffer、Channel、Selector
+
+### 关于本模块的练习内容
+* 通过基础数据的读写操作了解Buffer的关键属性和提供的方法作用
+* 通过文件的操作，大致了解Channel在IO中的作用
+* 通过两种方式模拟服务端与客户端的Socket通信,认识Selector带来的变化
 
 ### Java Nio的核心元素
 
