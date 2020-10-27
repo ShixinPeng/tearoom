@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * @author shixinpeng
  * @description 简单的使用java nio包中的 buffer
- * 了解三个核心的属:
+ * 了解三个核心的概念:
  * {@code position} 当前可以写入或者读取的位置 （相当于文档输入中的光标）
  * {@code limit} 第一个不可以写入或者读取的位置（相当于文本框，受限制，但可以修改）
  * {@code capacity} 容量，不能为负值，和被改变 （相当于纸张大小，不可变）

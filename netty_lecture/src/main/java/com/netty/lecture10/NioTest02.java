@@ -25,7 +25,7 @@ public class NioTest02 {
        // Channel A nexus for I/O operations
 
        channelRead();
-       channelWrite();
+//       channelWrite();
     }
 
     public static void channelRead() throws IOException {
@@ -54,6 +54,12 @@ public class NioTest02 {
         String content = new String(bytes, StandardCharsets.UTF_8);
 
         System.out.println("content:"+content);
+
+
+        // 尝试写入
+        byteBuffer.rewind();
+        // java.nio.channels.NonWritableChannelException
+//        fileChannel.write(byteBuffer);
         fileChannel.close();
     }
 

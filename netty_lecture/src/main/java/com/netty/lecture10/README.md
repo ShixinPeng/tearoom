@@ -1,7 +1,7 @@
 
-> 传统的java io核心是stream（流）
+> 传统的java io 面向 stream（流）
 >
-> Nio的核心有三个：Buffer、Channel、Selector
+> Nio的核心有三个：Buffer、Channel、Selector；面向块（block）或缓存区（buffer）编程。
 
 ### 关于本模块的练习内容
 * 通过基础数据的读写操作了解Buffer的关键属性和提供的方法作用
