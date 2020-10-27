@@ -92,25 +92,16 @@ public class NioTest01 {
 
         }
 
-//        buffer.reset();
-//        System.out.println("执行reset()方法");
-//        System.out.println(String.format("position=%d,limit=%d,capacity=%d",buffer.position(),buffer.limit(),buffer.capacity()) );
+        buffer.reset();
+        System.out.println("执行reset()方法");
+        System.out.println(String.format("position=%d,limit=%d,capacity=%d",buffer.position(),buffer.limit(),buffer.capacity()) );
 
-
-        // 执行flip()方法：limit = position；position=0，翻转，此时变为读模式，limit为可读的中止边界
-//        buffer.flip();
-//        System.out.println("执行flip()方法");
-//        System.out.println(String.format("position=%d,limit=%d,capacity=%d",buffer.position(),buffer.limit(),buffer.capacity()) );
 
         // 执行clear()方法 ：position=0 limit=capacity 相当于清除重置了
-//        buffer.clear();
-//        System.out.println("执行clear()方法");
-//        System.out.println(String.format("position=%d,limit=%d,capacity=%d",buffer.position(),buffer.limit(),buffer.capacity()) );
+        buffer.clear();
+        System.out.println("执行clear()方法");
+        System.out.println(String.format("position=%d,limit=%d,capacity=%d",buffer.position(),buffer.limit(),buffer.capacity()) );
 
-        // 执行rewind方法 倒回 :position=0 mark=无效位
-//        buffer.rewind();
-//        System.out.println("执行rewind方法 倒回");
-//        System.out.println(String.format("position=%d,limit=%d,capacity=%d",buffer.position(),buffer.limit(),buffer.capacity()) );
 
         // 使用slice 内容是互相透明的，位置维护是独立的
         buffer.slice();
@@ -119,4 +110,37 @@ public class NioTest01 {
 
 
     }
+
+    public static void bufferTestFlip(){
+        IntBuffer buffer = IntBuffer.allocate(10);
+        System.out.println(String.format("position=%d,limit=%d,capacity=%d",buffer.position(),buffer.limit(),buffer.capacity()) );
+        for (int i = 0; i <buffer.capacity()-1; i++) {
+            // 相对操作
+            buffer.put(i);
+            System.out.println(String.format("position=%d,limit=%d,capacity=%d",buffer.position(),buffer.limit(),buffer.capacity()) );
+        }
+
+        // 执行flip()方法：limit = position；position=0，翻转，此时变为读模式，limit为可读的中止边界
+        buffer.flip();
+        System.out.println("执行flip()方法");
+        System.out.println(String.format("position=%d,limit=%d,capacity=%d",buffer.position(),buffer.limit(),buffer.capacity()) );
+
+    }
+
+    public static void bufferTestRewind(){
+        IntBuffer buffer = IntBuffer.allocate(10);
+        System.out.println(String.format("position=%d,limit=%d,capacity=%d",buffer.position(),buffer.limit(),buffer.capacity()) );
+        for (int i = 0; i <buffer.capacity()-1; i++) {
+            // 相对操作
+            buffer.put(i);
+            System.out.println(String.format("position=%d,limit=%d,capacity=%d",buffer.position(),buffer.limit(),buffer.capacity()) );
+        }
+
+
+        // 执行rewind方法 倒回 :position=0 mark=无效位
+        buffer.rewind();
+        System.out.println("执行rewind方法 倒回");
+        System.out.println(String.format("position=%d,limit=%d,capacity=%d",buffer.position(),buffer.limit(),buffer.capacity()) );
+    }
+
 }
