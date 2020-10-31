@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
 
 /**
  * 只读byteBuffer
- * 堆外buffer
+ * 直接缓冲区 堆外buffer
  * scattering与Gathering
  *
  */
