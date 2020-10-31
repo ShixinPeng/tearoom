@@ -10,6 +10,8 @@ import java.net.Socket;
 
 /**
  * 服务端进行端口监听
+ * serverSocket不断监听端口
+ * 当有连接时，会创建一个线程单独处理该连接和端口的通信，并继续监听该线程
  */
 public class OioSocketMultiServer {
 

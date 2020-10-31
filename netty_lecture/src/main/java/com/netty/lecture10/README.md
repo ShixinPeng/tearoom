@@ -7,7 +7,10 @@
 * NioTest01 通过基础数据的读写操作了解Buffer的关键属性和提供的方法作用
 * NioTest02/NioTest03 通过文件的操作，大致了解Channel在IO中的作用
 * NioTest04 ByteBuffer 存储多种类型的数据
-* 通过两种方式模拟服务端与客户端的Socket通信,认识Selector带来的变化
+* NioTest05 ByteBuffer的实际使用类和只读ByteBuffer
+* NioTest06 通过Scattering 和Gathering 和端口监听数据，进行模拟填充完整的数据加载 
+* 通过OioSocketServer和NioSocketServer模拟服务端与多客户端的Socket通信,认识Selector带来的变化
+
 
 ### Java Nio的核心元素
 
@@ -18,3 +21,7 @@ buffer是一个抽象类，代表着基础类型数据的容器（除Boolean之�
 java 传统io操作和Think in java中关于java的讲解
 
 mac使用命令行进行网络测试
+```
+nc localhost $port
+
+```
