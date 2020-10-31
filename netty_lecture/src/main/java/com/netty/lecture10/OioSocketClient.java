@@ -35,9 +35,9 @@ public class OioSocketClient {
                 out.println("hello:"+i);
                 String s = in.readLine();
                 System.out.println(s);
-                Thread.sleep(10000);
+                Thread.sleep(5000);
             }
-//            out.println("END");
+            out.println("END");
 
         }finally {
             System.out.println("client closing……");
