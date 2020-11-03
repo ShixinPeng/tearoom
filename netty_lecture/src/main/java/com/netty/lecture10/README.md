@@ -14,8 +14,17 @@
 
 ### Java Nio的核心元素
 
-#### Buffer
+#### Buffer 缓冲区
 buffer是一个抽象类，代表着基础类型数据的容器（除Boolean之外）
+
+#### channel 通道
+
+#### Selector 选择器
+* 可以利用SelectableChannel 多路复用的对象
+* 可以通过open,openSelector 创建
+* 一个选择器维护三个选项集合（keysSet、selected-key、cancelled-key）
+* SelectableChannel 为了配合Selector，SelectableChannel需要注册到一个Selector上面。注册后，会返回一个SelectionKey，表示被Selector管理的channel对象，SelectableChannel的取消注册deregistered,意味着释放所有被Selector创建的资源
+* SelectionKey 作为被注册到Selector上的channel的凭证，在被取消或者channel关闭或者Selector关闭前，它都是有效的。当取消SelectionKey 时，该凭证不会立即被销毁，而是被移动到Selector中的cancelled-key集合中，等待下一次选择器操作才会被真正的处理。SelectionKey中包含两个可操作集合[interest set ] 会被下一次选择器检测的操作 [ready set] 被检测器已经识别到的操作；SelectionKey支持的操作选项来源于SelectableChannel#validOps() 的结果。并且提供attachment。用于支持实现channel更高等级的协议（这个就是注册时可以选择传入的第三个参数，相当于可以扩展实现）
 
 #### 可以延伸的方向
 java 传统io操作和Think in java中关于java的讲解
