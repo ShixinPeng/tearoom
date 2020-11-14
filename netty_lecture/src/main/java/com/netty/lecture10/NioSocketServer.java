@@ -37,7 +37,9 @@ public class NioSocketServer {
             // 可操作性key
             selector.select();
             Set<SelectionKey> selectionKeys = selector.selectedKeys();
-
+            if (selectionKeys.isEmpty()){
+                continue;
+            }
             for (SelectionKey selectionKey : selectionKeys) {
                 if (selectionKey.isAcceptable()){
                     ServerSocketChannel channel = (ServerSocketChannel) selectionKey.channel();
@@ -49,7 +51,7 @@ public class NioSocketServer {
                     // 注册读操作
                     client.configureBlocking(false);
                     client.register(selector,SelectionKey.OP_READ,clientId);
-
+                    selector.selectedKeys().remove(selectionKey);
                 } else if (selectionKey.isReadable()){
                     // 读取单个客户端写入的输出
                     SocketChannel channel = (SocketChannel)selectionKey.channel();
@@ -71,7 +73,7 @@ public class NioSocketServer {
                         } else if (read < 0) {
                             // read = -1;通道已经关闭
                             channel.close();
-                            selectionKey.cancel();
+
                             clientMap.remove(clientId);
                             System.out.println("客户端离线："+clientId);
                             break;
@@ -82,7 +84,7 @@ public class NioSocketServer {
                             socketChannel.write(byteBuffer);
                         }
                     }
-
+                    selector.selectedKeys().remove(selectionKey);
 
                 }
 
