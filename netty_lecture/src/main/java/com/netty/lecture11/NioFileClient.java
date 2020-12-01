@@ -7,6 +7,12 @@ import java.net.SocketAddress;
 import java.nio.channels.FileChannel;
 import java.nio.channels.SocketChannel;
 
+/**
+ * 本demo 可以关注两点
+ * 1.文件体积对#transferTo（）使用 有什么现实?
+ * 2.java Nio是如何判断系统是否支持sendFile()的?
+ *
+ */
 public class NioFileClient {
 
     public static void main(String[] args) throws IOException {

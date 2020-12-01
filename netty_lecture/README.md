@@ -21,7 +21,8 @@
     * 关于selector的使用
     * java传统io 进行socket编程
     * Nio进行socket编程
-    
+* lecture11 : 传统IO发送文件和Nio使用零拷贝进行文件传输的效率对比
+* Reactor模式
 
 ### Protocol Buffers的使用
 
