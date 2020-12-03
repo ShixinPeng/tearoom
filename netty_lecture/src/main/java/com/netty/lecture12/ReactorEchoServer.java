@@ -92,6 +92,7 @@ public class ReactorEchoServer  {
             @Override
             public void run() {
                 try {
+                    // 这里创建一个连接后，增加一个对应的handler进行消息处理，并没有停止监听连接事件！！！
                     SocketChannel socketChannel = serverSocketChannel.accept();
                     System.out.println("Reactor接收到连接");
                     if (Objects.nonNull(socketChannel)){
