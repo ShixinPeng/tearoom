@@ -14,6 +14,7 @@ import java.util.Set;
 /**
  * @author shixinpeng
  * @description 反应器 创建一个单线程的反应器，对事件进行分发处理
+ * 本服务通过Reactor实现一个简单的Echo服务，接受多客户端连接，当客户端写入满足10byte时进行回写
  * Reactor -> Acceptor -> Handler
  * @ClassName: Reactor
  * @date 2020/12/1
