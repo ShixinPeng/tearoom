@@ -21,7 +21,8 @@ public class NIoSocketClient {
 
     public static void main(String[] args) throws IOException {
 
-       startClientBatch();
+//       startClientBatch();
+       startOneClientBatch();
     }
 
     /**

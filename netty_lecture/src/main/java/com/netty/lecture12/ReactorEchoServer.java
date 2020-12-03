@@ -20,11 +20,20 @@ import java.util.Set;
  */
 public class ReactorEchoServer  {
 
-
+    final Reactor reactor;
     public static void main(String[] args) throws IOException {
-        System.out.println("启动Reactor-Nio服务");
-        
 
+        ReactorEchoServer echoServer = new ReactorEchoServer(8999);
+        Thread thread = new Thread(echoServer.reactor);
+        thread.setDaemon(true);
+        thread.start();
+        System.in.read();
+        System.out.println("服务端停止");
+
+    }
+
+    ReactorEchoServer(int port) throws IOException {
+       reactor = new Reactor(port);
     }
 
     class Reactor implements Runnable{
@@ -84,6 +93,7 @@ public class ReactorEchoServer  {
             public void run() {
                 try {
                     SocketChannel socketChannel = serverSocketChannel.accept();
+                    System.out.println("Reactor接收到连接");
                     if (Objects.nonNull(socketChannel)){
                         // 连接已经建立，给Selector绑定上处理器
                         new Handler(selector,socketChannel);
@@ -124,20 +134,46 @@ public class ReactorEchoServer  {
              */
             selector.wakeup();
         }
+        // 输入完成条件
         boolean inputIsComplete() {
 
-            return true;
+            // 缓冲区中满足10 byte 才进行回写
+            if (input.position()>9){
+                // 此时会调用#process进行逻辑处理
+                return true;
+            } else {
+                return false;
+            }
+
         }
+
         boolean outputIsComplete() {
-            return true;
+            if (output.remaining()==0){
+               // output中的byte全部已经被写出
+                System.out.println("输出完毕");
+                output.clear();
+                return true;
+            } else {
+                // 还有数据可被输出
+                return false;
+            }
         }
         // 业务处理
         void  process() {
+            // 缓冲区满足10 byte,写入到输出缓存区
 
+            input.flip();
+            output.put(input);
+            // 清空输入缓冲
+            input.clear();
+            output.flip();
         }
         // Reactor5: Request handling
         @Override
         public void run() {
+            if (state == SENDING){
+                System.out.println("对外写");
+            }
 
             try {
                 if      (state == READING) read();
@@ -162,7 +198,10 @@ public class ReactorEchoServer  {
         void send() throws IOException {
             socketChannel.write(output);
             if (outputIsComplete()){
-                sk.cancel();
+
+                // sk.cancel();
+                state = READING;
+                sk.interestOps(SelectionKey.OP_READ);
             }
         }
     }
