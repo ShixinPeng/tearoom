@@ -94,3 +94,21 @@ java Nio的支持
 通过attachment 绑定合适的处理器
 
 ## Reactor  多线程实现
+* 有策略的增加线程为了弹性伸缩；主要适合多处理器
+* 工作线程
+    * Reactors应该快速触发处理器（处理器处理会比Reactor慢）
+    * 拆解非IO处理过程到其他线程中
+* 多Reactor Threads
+    * Reactor线程可以充分用于IO处理
+    * 多Reactor之间做负载（合理利用CPU和IO速率）
+## Worker Threads
+* 拆解非IO处理已提高Reactor线程的处理速度
+* Reactor线程，比POSA2 Proactor 设计的更小
+* 计算绑定处理比转换事件驱动的形式更简单【个人理解：这里表达的是如果使用Worker Threads，方便了handler的实现，如果都通过事件驱动，那么handler的实现必须依照Reactor中的要求。类似于我业务的实现要受网络连接上的处理规则限制】
+    * 应该保持非阻塞计算（足够的处理消耗大于额外的开销消耗）
+* 对于IO的持续处理比较困难，最好是一开始就读取到所有的输入到一个缓冲区内
+* 使用线程池可以协调和控制，通常需要更小的线程服务更多设备
+
+## Worker Thread Pools
+
+
