@@ -39,6 +39,22 @@ void test2_60(){
     printf("replace_byte(0x%X,0,0xAB) --> 0x%X \n",x,a2);
     
 }
+void test2_61(){
+    int a = 0x0fFFFF0F;
+    int b = 0x0F0;
+    int c = 0xFFF;
+    int d = 0x000FFFFF;
+    
+    int ax = check_x(a);
+    printf("A:%d\n",ax);
+    int bx = check_x(b);
+    printf("B:%d\n",bx);
+    int cx = check_x(c);
+    printf("C:%d\n",cx);
+    int dx = check_x(d);
+    printf("D:%d\n",dx);
+    
+}
 int main(int argc, const char * argv[]) {
     // insert code here...
     printf("Hello, World!\n");
@@ -46,7 +62,8 @@ int main(int argc, const char * argv[]) {
 //    test2_57()
 //    test2_58();
 //    test2_59();
-    test2_60();
+//    test2_60();
+    test2_61();
     
     return 0;
 }

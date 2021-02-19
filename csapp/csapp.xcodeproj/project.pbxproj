@@ -16,6 +16,7 @@
 		ED98937225DF98A50074E3DE /* P2_58.c in Sources */ = {isa = PBXBuildFile; fileRef = ED98937125DF98A50074E3DE /* P2_58.c */; };
 		ED98937425DFA3AD0074E3DE /* P2_59.c in Sources */ = {isa = PBXBuildFile; fileRef = ED98937325DFA3AD0074E3DE /* P2_59.c */; };
 		ED98937625DFB0B20074E3DE /* P2_60.c in Sources */ = {isa = PBXBuildFile; fileRef = ED98937525DFB0B20074E3DE /* P2_60.c */; };
+		ED98937825DFB7A30074E3DE /* P2_61.c in Sources */ = {isa = PBXBuildFile; fileRef = ED98937725DFB7A30074E3DE /* P2_61.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -71,6 +72,7 @@
 		ED98937125DF98A50074E3DE /* P2_58.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = P2_58.c; sourceTree = "<group>"; };
 		ED98937325DFA3AD0074E3DE /* P2_59.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = P2_59.c; sourceTree = "<group>"; };
 		ED98937525DFB0B20074E3DE /* P2_60.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = P2_60.c; sourceTree = "<group>"; };
+		ED98937725DFB7A30074E3DE /* P2_61.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = P2_61.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 				ED98937125DF98A50074E3DE /* P2_58.c */,
 				ED98937325DFA3AD0074E3DE /* P2_59.c */,
 				ED98937525DFB0B20074E3DE /* P2_60.c */,
+				ED98937725DFB7A30074E3DE /* P2_61.c */,
 			);
 			path = P2_homework;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED98937825DFB7A30074E3DE /* P2_61.c in Sources */,
 				ED98937625DFB0B20074E3DE /* P2_60.c in Sources */,
 				ED98937225DF98A50074E3DE /* P2_58.c in Sources */,
 				ED98936B25DF96A80074E3DE /* main.c in Sources */,
