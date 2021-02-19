@@ -8,8 +8,10 @@
 
 #include <stdio.h>
 // 编写is_little_endian 小端时返回1，大端时返回0；兼容任何字长
+typedef unsigned char *byte_pointer;
 
 int is_little_endian() {
-    
-    return 0;
+    int x = 0x01;
+    int y = ((byte_pointer)&x)[0];
+    return x==y;
 }
