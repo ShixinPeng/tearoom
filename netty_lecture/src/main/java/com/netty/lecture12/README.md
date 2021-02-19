@@ -133,4 +133,8 @@ java Nio的支持
     * 讲台或者动态的构造器，拥有自己的选择器，线程，分发循环
     * 主接收器分配给其他Reactor
     
+ 
+ #基于另外一套Reactor模型的组件分类形式
+ ## Handles 句柄、符号
+ ## Synchronous Event Demultiplexer 同步事件分离器
     

@@ -82,6 +82,8 @@ public class Graph {
                     prev[q] = w;
                     // 如果邻接顶点为终止顶点，则打印已经存储的路径
                     if (q==t){
+                        // 输入路径
+                        printPath(prev,s,t);
                         return;
                     }
                     // 如果邻接顶点不为终止顶点，则：
@@ -96,18 +98,69 @@ public class Graph {
 
     }
 
+    private void printPath(int[] prev,int s,int t) {
 
-    public void dfs(){
+        if (prev[t] != -1 && t != s){
+            printPath(prev,s,prev[t]);
+        }
+        System.out.print(t + " ");
+    }
+
+
+    /**
+     * 全局变量或者类成员变量
+     * 用于控制在深度优先查找中，找到路径后跳出循环
+     */
+    boolean found = false;
+
+    /**
+     *  深度优先算法
+     * @title dfs
+     * @author shixin peng
+     * @date 2020-03-08 14:48
+     * @param
+     * @return void
+     * @throws
+     */
+
+    public void dfs(int s,int t){
+        // 重置标识
+        found = false;
+        // 访问过的顶点记录
+        boolean[] visited = new boolean[v];
+
+        // 查找路径存储数组
+        int[] prev = new int[v];
+        // 初始化查找路径
+        for (int i = 0; i < v; i++) {
+            prev[i] = -1;
+        }
+        // 查找路径
 
     }
 
+    private void recurDfs(int w,int t,boolean[] visited,int[] prev) {
+        // 寻找成功，停止寻找
+        if (found == true) return;
+
+        visited[w]
+    }
+
     public static void main(String[] args) {
+
+
+
+    }
+
+    public static void bfsTest() {
         Graph graph = new Graph(5);
         graph.addEgde(1,2);
+        graph.addEgde(2,3);
+        graph.addEgde(3,4);
         graph.addEgde(1,3);
-        graph.addEgde(1,4);
 
         graph.printGraph();
 
+        graph.bfs(1,4);
     }
 }

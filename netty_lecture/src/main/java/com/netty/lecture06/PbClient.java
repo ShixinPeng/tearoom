@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Random;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -34,7 +35,16 @@ import io.netty.util.CharsetUtil;
 public class PbClient  {
 
     public static File file = new File("/Users/shixinpeng/tearoom/netty_lecture/src/main/java/com/netty/lecture06/student.code");
+    public static File batchFile = new File("/Users/shixinpeng/tearoom/netty_lecture/src/main/java/com/netty/lecture06/batch-student.code");
+
     public static void main(String[] args) throws IOException, InterruptedException {
+
+//        batchSaveInfos();
+        batchReadInfos();
+    }
+
+
+    public static void startClient() throws IOException, InterruptedException{
         NioEventLoopGroup eventLoopGroup = new NioEventLoopGroup();
 
         try {
@@ -70,7 +80,6 @@ public class PbClient  {
         }finally {
             eventLoopGroup.shutdownGracefully();
         }
-
     }
 
     public static void pbEncode() throws IOException {
@@ -98,7 +107,48 @@ public class PbClient  {
         System.out.println("student2" + student2.toString());
         fileInputStream.close();
 
+    }
+
+
+    public static void batchSaveInfos() throws IOException{
+
+        // 批量写入100个对象信息的pb二进制到文件中，在反向读出来
+        FileOutputStream fileOutputStream = new FileOutputStream(batchFile);
+
+        int infoCount = 100;
+        Random random = new Random();
+        long phone;
+        DataInfo.Student student;
+        for (int i = 0; i < infoCount; i++) {
+            phone = random.nextLong();
+            student = DataInfo.Student.newBuilder().setName("小红").setPhone(String.valueOf(phone)).setAge(i).build();
+
+            System.out.println("student"+student.toString());
+
+            student.writeDelimitedTo(fileOutputStream);
+            byte[] bytes = student.toByteArray();
+            System.out.println("bytes长度="+bytes.length);
+
+        }
+        fileOutputStream.close();
 
     }
 
+    /**
+     *   批量读取100个对象信息的pb二进制文件
+     * @throws IOException
+     */
+    public static void batchReadInfos() throws IOException{
+        FileInputStream fileInputStream = new FileInputStream(batchFile);
+
+        int available = fileInputStream.available();
+        while (available>0){
+            DataInfo.Student student = DataInfo.Student.parseDelimitedFrom(fileInputStream);
+
+            System.out.println(student.toString());
+            available = fileInputStream.available();
+        }
+
+        fileInputStream.close();
+    }
 }
