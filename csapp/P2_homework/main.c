@@ -1,4 +1,3 @@
-//
 //  main.c
 //  P2_homework
 //
@@ -7,6 +6,7 @@
 //
 
 #include <stdio.h>
+#include <assert.h>
 
 void test2_57(){
     // float 不能准确描述的正整数值 2^(n+1) + 1
@@ -55,6 +55,18 @@ void test2_61(){
     printf("D:%d\n",dx);
     
 }
+
+void test2_61_2(){
+    int all_bit_one = -0;
+    int all_bit_zero = 0;
+    
+    assert(check_a(all_bit_one));
+    assert(!check_b(all_bit_one));
+    assert(check_c(all_bit_one));
+    assert(!check_d(all_bit_one));
+    
+}
+
 int main(int argc, const char * argv[]) {
     // insert code here...
     printf("Hello, World!\n");
@@ -63,7 +75,8 @@ int main(int argc, const char * argv[]) {
 //    test2_58();
 //    test2_59();
 //    test2_60();
-    test2_61();
+//    test2_61();
+    test2_61_2();
     
     return 0;
 }
