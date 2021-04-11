@@ -17,9 +17,11 @@ int xbyte_old(packet_t word,int bytenum){
 int xbyte_new(packet_t word,int bytenum){
  
    // 要确认获取的byte是否为负值
-  int size = sizeof(unsigned);
-  int shift_left_val = (size -1 -bytenum) << 3;
-  int shift_right_val = (size - 1) << 3;
+  // 已知unsigned为32位
+  int max_offset = 3;
+  
+  int shift_left_val = (max_offset - bytenum) << 3;
+  int shift_right_val = max_offset << 3;
 
   return (int) word << shift_left_val >> shift_right_val;
 }
