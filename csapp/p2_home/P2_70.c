@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
 
-
+// x 是否可以用n个bit的二进制数进行表示
 int fits_bits(int x, int n) {
     int w  = sizeof(int) << 3;
     int offset = w - n;
