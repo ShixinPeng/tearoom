@@ -1,4 +1,4 @@
-package com.concurrent.art.chapter4;
+package com.ocjp.concurrent.art.chapter4;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;

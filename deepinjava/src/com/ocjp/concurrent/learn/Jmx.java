@@ -1,6 +1,4 @@
-package com.concurrent.learn;
-
-import java.lang.management.ThreadMXBean;
+package com.ocjp.concurrent.learn;
 
 public class Jmx {
     // 阿里阿尔萨斯

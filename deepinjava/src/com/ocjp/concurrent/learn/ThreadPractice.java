@@ -1,4 +1,4 @@
-package com.concurrent.learn;
+package com.ocjp.concurrent.learn;
 
 public class ThreadPractice {
 

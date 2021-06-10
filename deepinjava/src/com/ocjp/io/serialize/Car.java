@@ -1,4 +1,4 @@
-package com.chapter.io;
+package com.ocjp.io.serialize;
 
 public class Car {
 

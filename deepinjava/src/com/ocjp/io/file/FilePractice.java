@@ -1,4 +1,4 @@
-package com.io.file;
+package com.ocjp.io.file;
 
 import java.io.File;
 import java.util.Arrays;
